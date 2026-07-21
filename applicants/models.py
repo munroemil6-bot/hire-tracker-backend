@@ -25,7 +25,9 @@ class Applicant(models.Model):
     job = models.ForeignKey(
         Job,
         on_delete=models.CASCADE,
-        related_name="applications"
+        related_name="applications",
+        null=True,
+        blank=True
     )
 
     skills = models.ManyToManyField(
@@ -34,10 +36,12 @@ class Applicant(models.Model):
     )
 
     resume = models.FileField(
-        upload_to="resumes/"
+        upload_to="resumes/",
+        blank=True,
+        null=True
     )
 
-    cover_letter = models.TextField()
+    cover_letter = models.TextField(blank=True)
 
     application_status = models.CharField(
         max_length=20,

@@ -6,7 +6,7 @@ from .models import Applicant
 class ApplicantSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     user_name = serializers.CharField(source="user.username", read_only=True)
-    job_title = serializers.CharField(source="job.title", read_only=True)
+    job_title = serializers.SerializerMethodField(read_only=True)
 
     interview_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)
 
@@ -31,11 +31,6 @@ class ApplicantSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Authentication required to apply")
 
         user = request.user
-
-        # prevent duplicate applicant record for a user
-        if Applicant.objects.filter(user=user).exists():
-            raise serializers.ValidationError("Applicant profile already exists for this user")
-
         skills = validated_data.pop("skills", [])
 
         # ensure application starts as PENDING
@@ -47,3 +42,6 @@ class ApplicantSerializer(serializers.ModelSerializer):
             applicant.skills.set(skills)
 
         return applicant
+
+    def get_job_title(self, obj):
+        return getattr(obj.job, 'title', '') if obj and getattr(obj, 'job', None) else ''

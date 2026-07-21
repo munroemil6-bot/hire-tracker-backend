@@ -27,7 +27,6 @@ class ApplicantApprovalTests(TestCase):
         self.applicant = Applicant.objects.create(
             user=self.applicant_user,
             job=self.job,
-            resume="resumes/test.txt",
             cover_letter="Please consider me",
             application_status="PENDING",
         )

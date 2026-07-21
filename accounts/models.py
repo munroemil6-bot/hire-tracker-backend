@@ -21,11 +21,5 @@ class User(AbstractUser):
         blank=True
     )
 
-    profile_picture = models.ImageField(
-        upload_to="profiles/",
-        blank=True,
-        null=True
-    )
-
     def __str__(self):
         return self.username
