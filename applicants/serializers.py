@@ -18,7 +18,6 @@ class ApplicantSerializer(serializers.ModelSerializer):
             "user_name",
             "job",
             "job_title",
-            "skills",
             "resume",
             "cover_letter",
             "application_status",
@@ -30,16 +29,14 @@ class ApplicantSerializer(serializers.ModelSerializer):
         if request is None or request.user is None or not request.user.is_authenticated:
             raise serializers.ValidationError("Authentication required to apply")
 
-        user = request.user
-        skills = validated_data.pop("skills", [])
+        user = validated_data.pop("user", request.user)
+        application_status = validated_data.pop("application_status", "PENDING")
 
-        # ensure application starts as PENDING
-        validated_data["application_status"] = "PENDING"
-
-        applicant = Applicant.objects.create(user=user, **validated_data)
-
-        if skills:
-            applicant.skills.set(skills)
+        applicant = Applicant.objects.create(
+            user=user,
+            application_status=application_status,
+            **validated_data,
+        )
 
         return applicant
 

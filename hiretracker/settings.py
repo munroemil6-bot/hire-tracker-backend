@@ -82,7 +82,6 @@ INSTALLED_APPS = [
     'attendance',
     'accomplishments',
     'notifications',
-    'skills',
 ]
 
 MIDDLEWARE = [

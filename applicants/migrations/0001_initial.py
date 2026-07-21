@@ -11,7 +11,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('jobs', '0001_initial'),
-        ('skills', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -24,7 +23,6 @@ class Migration(migrations.Migration):
                 ('cover_letter', models.TextField()),
                 ('status', models.CharField(choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], default='Pending', max_length=20)),
                 ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='jobs.job')),
-                ('skills', models.ManyToManyField(to='skills.skill')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

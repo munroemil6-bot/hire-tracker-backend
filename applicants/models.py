@@ -2,7 +2,6 @@ from django.db import models
 
 from accounts.models import User
 from jobs.models import Job
-from skills.models import Skill
 
 
 class Applicant(models.Model):
@@ -30,11 +29,6 @@ class Applicant(models.Model):
         blank=True
     )
 
-    skills = models.ManyToManyField(
-        Skill,
-        blank=True
-    )
-
     resume = models.FileField(
         upload_to="resumes/",
         blank=True,
@@ -55,4 +49,4 @@ class Applicant(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user.username} - {self.job.title}"
+        return f"{self.user.username} - {self.job.title if self.job else 'No job'}"

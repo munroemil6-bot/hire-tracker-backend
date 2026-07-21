@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('applicants', '0001_initial'),
         ('jobs', '0001_initial'),
-        ('skills', '0002_alter_skill_name'),
     ]
 
     operations = [
@@ -26,10 +25,5 @@ class Migration(migrations.Migration):
             model_name='applicant',
             name='job',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='jobs.job'),
-        ),
-        migrations.AlterField(
-            model_name='applicant',
-            name='skills',
-            field=models.ManyToManyField(blank=True, to='skills.skill'),
         ),
     ]
