@@ -45,17 +45,18 @@ DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 ALLOWED_HOSTS = get_allowed_hosts('localhost,127.0.0.1,.onrender.com')
 CORS_ALLOWED_ORIGINS = get_env_list(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost:5173,http://127.0.0.1:5173,https://hire-tracker-frontend.onrender.com',
+    'http://localhost:5173,http://127.0.0.1:5173,https://hire-tracker-frontend.onrender.com,https://hire-tracker-frontend-4.vercel.app',
+)
+CSRF_TRUSTED_ORIGINS = get_env_list(
+    'CSRF_TRUSTED_ORIGINS',
+    'http://localhost:5173,https://hire-tracker-frontend.onrender.com,https://hire-tracker-frontend-4.vercel.app,https://hiretracker-backend-prod.onrender.com',
 )
 CORS_ALLOWED_ORIGIN_REGEX_WHITELIST = [
     r'^https://.*\.onrender\.com$',
+    r'^https://.*\.vercel\.app$',
     r'^http://localhost:\d+$',
     r'^http://127\.0\.0\.1:\d+$',
 ]
-CSRF_TRUSTED_ORIGINS = get_env_list(
-    'CSRF_TRUSTED_ORIGINS',
-    'http://localhost:5173,https://hire-tracker-frontend.onrender.com,https://hire-tracker-backend-95mr.onrender.com',
-)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 
